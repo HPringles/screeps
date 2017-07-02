@@ -132,8 +132,7 @@ export function init(options: EnvOptions): Config {
   config.module.rule("lint")
     .test(/\.tsx?$/)
     .exclude
-      .add(path.join(ROOT, "src/snippets"))
-      .add(path.join(ROOT, "src/lib"))
+      .add(path.join(ROOT, "src")) // remove this to enable tslint
       .end()
     .use("tslint")
       .loader("tslint-loader")

@@ -6,7 +6,6 @@
     "noEmitOnError": true,
     "noResolve": false,
     "experimentalDecorators": true,
-    "strict": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "sourceMap": true,
