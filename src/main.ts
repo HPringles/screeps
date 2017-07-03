@@ -1,3 +1,3 @@
 export const loop = function() {
-    console.log("hello world!")
+    console.log("running!!");
 }
