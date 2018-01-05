@@ -4,6 +4,8 @@
 
 -----
 
+**Warning: This was forked to ensure the code in [this tutorial](https://screepsworld.com/2017/07/typescreeps-installing-everything-you-need/) would remain valid. For other purposes I recommend using the original repository**
+
 **screeps-typescript-starter** is a starter kit for building [Screeps](https://screeps.com/) AIs in [TypeScript](http://www.typescriptlang.org/).
 It is based on [the original starter kit](https://github.com/MarkoSulamagi/Screeps-typescript-sample-project) by [Marko Sulamägi](https://github.com/MarkoSulamagi), but with extra tools for easy compiling/deploying of scripts to the Screeps server, as well as a base framework for running tests.
 
