@@ -8,8 +8,8 @@ var roleHarvester = {
         var spawnHarvesters = _.filter(Game.creeps, (creep) => creep.memory.currentRole == 'harvester' && creep.memory.harvestConfig && creep.memory.harvestConfig.targetType == "spawn");
         var extensionHarvesters = _.filter(Game.creeps, (creep) => creep.memory.currentRole == 'harvester' && creep.memory.harvestConfig && creep.memory.harvestConfig.targetType == "extension");
         
-        console.log( "Extension Suppliers: " + extensionHarvesters)
-        console.log("Spawn Suppliers: " + spawnHarvesters)
+        // console.log( "Extension Suppliers: " + extensionHarvesters)
+        // console.log("Spawn Suppliers: " + spawnHarvesters)
         if (!creep.memory.harvestConfig || extensionHarvesters.length < 2 || spawnHarvesters.length < 2) {
 
             targetType = null;
@@ -35,10 +35,10 @@ var roleHarvester = {
 	    if(creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES);
             if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                if (creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}}) == ERR_NO_PATH) {
+                if (creep.moveTo(sources[0]) == ERR_NO_PATH) {
                     if (sources[1]){
                     if(creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
-                        if (creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}}) == ERR_NO_PATH) {
+                        if (creep.moveTo(sources[0]) == ERR_NO_PATH) {
                             
                         }
                     }
@@ -59,10 +59,17 @@ var roleHarvester = {
             if(targets.length > 0) {
                 var targetFound = false
                 target = 0
+                
+
                 while (!targetFound){
+                    if (!targets[target]) {
+                        
+                        targetFound = true;
+                    }
                     var resultOfTransfer = creep.transfer(targets[target], RESOURCE_ENERGY);
                     if(resultOfTransfer == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                        creep.moveTo(targets[0]);
+                        targetFound = true;
                     } 
                     else if(resultOfTransfer == ERR_FULL) {
                         console.log("Spawn Full")

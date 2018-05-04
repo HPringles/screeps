@@ -20,6 +20,9 @@ var roleBuilder = {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             } else {
+                if (!creep.memory.harvesterConfig){
+                    roleHarvester.setup(Game, creep)
+                }
                 roleHarvester.run(creep);
                 console.log(creep.name + ": No work , harvesting")
                 // creep.say("harvesting")

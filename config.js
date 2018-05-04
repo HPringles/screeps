@@ -1,7 +1,7 @@
 module.exports = {
     currentWallTarget: {x: 34, y: 7},
     numBuilders: 4,
-    numHarvesters: 4,
+    numHarvesters: 2,
     numUpgraders: 3,
     numTestWallBreakers: 0,
     builderConfig: [WORK, WORK, CARRY, CARRY, MOVE],
