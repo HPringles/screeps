@@ -10,15 +10,15 @@ var roleHarvester = {
         
         console.log( "Extension Suppliers: " + extensionHarvesters)
         console.log("Spawn Suppliers: " + spawnHarvesters)
-        if (!creep.memory.harvestConfig || extensionHarvesters < 2 || spawnHarvesters < 2) {
+        if (!creep.memory.harvestConfig || extensionHarvesters.length < 2 || spawnHarvesters.length < 2) {
 
             targetType = null;
             var harvesters = _.filter(Game.creeps, (creep) => creep.memory.currentRole == 'harvester');
             
             
-            if (spawnHarvesters < harvesters/2) {
+            if (spawnHarvesters.length < harvesters/2) {
                 targetType = "spawn"
-            } else if (extensionHarvesters < harvesters/2) {
+            } else if (extensionHarvesters.length < harvesters.length/2) {
                 targetType = "extension"
             } else {
                 targetType = "spawn"
