@@ -8,8 +8,8 @@ var roleHarvester = {
         var spawnHarvesters = _.filter(Game.creeps, (creep) => creep.memory.currentRole == 'harvester' && creep.memory.harvestConfig && creep.memory.harvestConfig.targetType == "spawn");
         var extensionHarvesters = _.filter(Game.creeps, (creep) => creep.memory.currentRole == 'harvester' && creep.memory.harvestConfig && creep.memory.harvestConfig.targetType == "extension");
         
-        console.log(extensionHarvesters)
-        console.log(spawnHarvesters)
+        console.log( "Extension Suppliers: " + extensionHarvesters)
+        console.log("Spawn Suppliers: " + spawnHarvesters)
         if (!creep.memory.harvestConfig || extensionHarvesters < 2 || spawnHarvesters < 2) {
 
             targetType = null;
@@ -57,13 +57,19 @@ var roleHarvester = {
                     }
             });
             if(targets.length > 0) {
-                var resultOfTransfer = creep.transfer(targets[0], RESOURCE_ENERGY);
-                if(resultOfTransfer == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
-                } 
-                else if(resultOfTransfer == ERR_FULL) {
-                    console.log("Spawn Full")
-                    roleUpgrader.run(creep)
+                var targetFound = false
+                target = 0
+                while (!targetFound){
+                    var resultOfTransfer = creep.transfer(targets[target], RESOURCE_ENERGY);
+                    if(resultOfTransfer == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                    } 
+                    else if(resultOfTransfer == ERR_FULL) {
+                        console.log("Spawn Full")
+                        target++ 
+                    } else {
+                        targetFound = true;
+                    }
                 }
             }
         }
