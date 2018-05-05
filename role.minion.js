@@ -1,7 +1,9 @@
+config = require("config")
+
 module.exports = {
     run: function(creep) {
 
-        if (creep.carry.energy == 0) {
+        if (creep.carry.energy < creep.carryCapacity) {
 
             var targets = creep.room.find(FIND_STRUCTURES, {
                 
@@ -23,10 +25,14 @@ module.exports = {
                 }
             });
 
-            
+            if (!target) {
+                creep.moveTo(config.mapSafeMinionZone.x, config.mapSafeMinionZone.y)
+            }
             var transOutcome = creep.transfer(target, RESOURCE_ENERGY)
             if(transOutcome == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target);
+            } else if (!transOutcome) {
+                console.log("Supplied Energy to: " + target.structureType + ", " + target.id)
             }
         }
     }

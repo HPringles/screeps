@@ -14,19 +14,21 @@ module.exports.loop = function () {
         Game.getObjectById("59f1a01c82100e1594f36134").activateSafeMode()
     }
     
-    var tower = null;
+    var tower = Game.getObjectById("5aeda00fc1b95d38f405ec15");
     
     if(tower) {
+        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+
+        if(closestHostile) {
+            console.log(tower.attack(closestHostile));
+        }
         var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-            filter: (structure) => structure.hits < structure.hitsMax
+            filter: (structure) => structure.hits < (structure.hitsMax*0.003)
         });
         if(closestDamagedStructure) {
             tower.repair(closestDamagedStructure);
         }
-        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if(closestHostile) {
-            tower.attack(closestHostile);
-        }
+        
     }
 
     for(var name in Game.creeps) {
