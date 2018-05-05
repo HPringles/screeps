@@ -1,13 +1,16 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
-var roleWallBreaker = require("role.wallbreaker"); 
 var scripts = require("scripts");
 var config = require("config")
 module.exports.loop = function () {
     
 
     scripts.checkSpawn(Game);
+
+    if(!Game.getObjectById("59f1a01c82100e1594f36134").safeMode) {
+        Game.getObjectById("59f1a01c82100e1594f36134").activateSafeMode()
+    }
     
     var tower = null;
     
@@ -38,8 +41,6 @@ module.exports.loop = function () {
         if(creep.memory.currentRole == 'builder') {
             roleBuilder.run(creep)
         }
-        if(creep.memory.currentRole == 'wallbreaker') {
-            roleWallBreaker.run(creep);
-        }
+
     }
 }
