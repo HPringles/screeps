@@ -6,6 +6,8 @@ var spawnScript = {
 
     run: function(Game) {
         var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
+        var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
+        var minons = _.filter(Game.creeps, (creep) => creep.memory.role == 'minion');
         var builders =  _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         var wallBreakers = _.filter(Game.creeps, (creep) => creep.memory.role == 'wallbreaker');
@@ -22,6 +24,20 @@ var spawnScript = {
             console.log('Spawning new harvester: ' + newName);
             Game.spawns['Spawn1'].spawnCreep(config.harvesterConfig, newName, 
                 {memory: {role: 'harvester', currentRole: 'harvester'}});        
+        }
+
+        if(miners.length < config.numMiners) {
+            var newName = 'Miner' + Game.time;
+            console.log('Spawning new miner: ' + newName);
+            Game.spawns['Spawn1'].spawnCreep(config.minerConfig, newName, 
+                {memory: {role: 'miner', currentRole: 'miner'}});        
+        }
+
+        if(minons.length < config.numMinions) {
+            var newName = 'Minion' + Game.time;
+            console.log('Spawning new minion: ' + newName);
+            Game.spawns['Spawn1'].spawnCreep(config.minionConfig, newName, 
+                {memory: {role: 'minion', currentRole: 'minion'}});        
         }
         
         if(upgraders.length < config.numUpgraders) {
