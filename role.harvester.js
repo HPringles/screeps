@@ -9,8 +9,6 @@ var roleHarvester = {
         var extensionHarvesters = _.filter(Game.creeps, (creep) => creep.memory.currentRole == 'harvester' && creep.memory.harvestConfig && creep.memory.harvestConfig.targetType == "extension");
         var towerHarvesters = _.filter(Game.creeps, (creep) => creep.memory.currentRole == 'harvester' && creep.memory.harvestConfig && creep.memory.harvestConfig.targetType == "tower");
         var towers = _.filter(Game.structures, (struct) => struct.structureType === STRUCTURE_TOWER)
-        // console.log( "Extension Suppliers: " + extensionHarvesters)
-        // console.log("Spawn Suppliers: " + spawnHarvesters)
         if (!creep.memory.harvestConfig || extensionHarvesters.length < 2 || spawnHarvesters.length < 2) {
 
             targetType = null;

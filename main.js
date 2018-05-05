@@ -3,6 +3,7 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleMiner = require("role.miner");
 var roleMinion = require("role.minion");
+var roleRubbishCollector = require("role.rubbishCollector");
 var scripts = require("scripts");
 var config = require("config")
 module.exports.loop = function () {
@@ -20,13 +21,16 @@ module.exports.loop = function () {
         var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 
         if(closestHostile) {
-            console.log(tower.attack(closestHostile));
+            tower.attack(closestHostile);
         }
         var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-            filter: (structure) => structure.hits < (structure.hitsMax*0.003)
+            filter: (structure) => (structure.structureType === STRUCTURE_CONTAINER) || structure.hits < (structure.hitsMax*0.000003)
         });
+        
         if(closestDamagedStructure) {
             tower.repair(closestDamagedStructure);
+        } else {
+            tower.repair(Game.getObjectById("5aedf9a4d7b511312de0e510"))
         }
         
     }
@@ -50,6 +54,9 @@ module.exports.loop = function () {
         }
         if (creep.memory.currentRole == 'minion') {
             roleMinion.run(creep);
+        }
+        if (creep.memory.currentRole == 'rubbishCollector') {
+            roleRubbishCollector.run(creep);
         }
 
     }

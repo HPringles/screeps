@@ -32,7 +32,7 @@ module.exports = {
             if(transOutcome == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target);
             } else if (!transOutcome) {
-                console.log("Supplied Energy to: " + target.structureType + ", " + target.id)
+                // console.log("Supplied Energy to: " + target.structureType + ", " + target.id)
             }
         }
     }
