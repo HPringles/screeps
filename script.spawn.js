@@ -8,9 +8,11 @@ var spawnScript = {
         var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
         var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
         var minons = _.filter(Game.creeps, (creep) => creep.memory.role == 'minion');
-        var builders =  _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
+        var builders =  _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.upkeep == false);
+        var upkeepers =  _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.upkeep == true);
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         var rubbishCollectors = _.filter(Game.creeps, (creep) => creep.memory.role == 'rubbishCollector');
+
 
         for(var name in Memory.creeps) {
             if(!Game.creeps[name]) {
@@ -60,6 +62,13 @@ var spawnScript = {
                 {memory: {role: 'builder', currentRole: "builder"}});        
         }
         
+        if(upkeepers.length < config.numUpkeepers) {
+            var newName = 'Builder' + Game.time;
+            console.log('Spawning new builder: ' + newName);
+            Game.spawns['Spawn1'].spawnCreep(config.builderConfig, newName, 
+                {memory: {role: 'builder', currentRole: "builder", upkeep:true}});        
+        }
+
         if(Game.spawns['Spawn1'].spawning) { 
             var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
             Game.spawns['Spawn1'].room.visual.text(

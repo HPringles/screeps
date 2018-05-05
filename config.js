@@ -4,11 +4,12 @@ module.exports = {
         y: 10
     },
     currentWallTarget: {x: 34, y: 7},
-    numBuilders: 2,
+    numBuilders: 3,
     numHarvesters: 0,
     numUpgraders: 4,
     numMiners: 3,
     numMinions: 2,
+    numUpkeepers: 2,
     numRubbishCollectors: 1,
     rubbishCollectorConfig: [CARRY, CARRY, CARRY, CARRY, MOVE],
     builderConfig: [WORK, WORK, CARRY, CARRY, MOVE],

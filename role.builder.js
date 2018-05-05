@@ -16,8 +16,18 @@ var roleBuilder = {
 	    }
 
 	    if(creep.memory.building) {
+            var container = Game.getObjectById("5aedf9a4d7b511312de0e510");
+            if (container.hits <= 235000 && creep.memory.upkeep == true) {
+                if(creep.repair(container) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(container, {visualizePathStyle: {stroke: '#ffffff'}});
+
+                }
+                return;
+            }
             
-	        var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+            var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+            
+
             if(targets.length) {
                 
                 
@@ -25,9 +35,7 @@ var roleBuilder = {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             } else {
-                if (!creep.memory.harvesterConfig){
-                    roleHarvester.setup(Game, creep)
-                }
+                
                 creep.moveTo(config.mapSafeMinionZone.x, config.mapSafeMinionZone.y);
                 // justHarvested = true;
             }
