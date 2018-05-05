@@ -23,13 +23,6 @@ var spawnScript = {
             Game.spawns['Spawn1'].spawnCreep(config.harvesterConfig, newName, 
                 {memory: {role: 'harvester', currentRole: 'harvester'}});        
         }
-
-        if(wallBreakers.length < config.numTestWallBreakers) {
-            var newName = 'WallBreaker' + Game.time;
-            console.log('Spawning new wallbreaker: ' + newName);
-            console.log(Game.spawns['Spawn1'].spawnCreep(config.testWallBreakerConfig, newName, 
-                {memory: {role: 'wallbreaker', currentRole: 'wallbreaker'}}));        
-        }
         
         if(upgraders.length < config.numUpgraders) {
             var newName = 'Upgrader' + Game.time;
