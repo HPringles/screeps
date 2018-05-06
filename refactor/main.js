@@ -1,12 +1,6 @@
 var scripts = require("scripts");
 
-
-
-
-
-
 module.exports.loop = function () {
-    
     scripts.checkSpawn(Game);
     scripts.tower.run(Game);
 

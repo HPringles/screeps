@@ -3,12 +3,11 @@ module.exports = {
         x: 21,
         y: 10
     },
-    currentWallTarget: {x: 34, y: 7},
     numBuilders: 2,
     numHarvesters: 0,
     numUpgraders: 3,
     numMiners: 3,
-    numMinions: 2,
+    numMinions: 3,
     numUpkeepers: 1,
     numRubbishCollectors: 1,
     rubbishCollectorConfig: [CARRY, CARRY, CARRY, CARRY, MOVE],
@@ -16,5 +15,5 @@ module.exports = {
     harvesterConfig: [WORK,CARRY, MOVE, MOVE],
     upgraderConfig: [WORK,CARRY,CARRY, MOVE],
     minerConfig: [WORK, WORK, CARRY, MOVE],
-    minionConfig: [CARRY, CARRY, CARRY, MOVE],
+    minionConfig: [WORK, CARRY, CARRY, CARRY, MOVE],
 }
