@@ -7,7 +7,7 @@ const rubbishCollectorV2 = {
         var target = scripts.findDroppedEnergy(creep)
         if(creep.carry.energy != creep.carryCapacity && target) {
             scripts.transferTypes.pickupDroppedEnergy(creep, target)
-        } else if (!target && creep.carry.energy != 0) {
+        } else if (!target && creep.carry.energy == 0) {
             scripts.goToSafeZone(creep);
         } 
         
