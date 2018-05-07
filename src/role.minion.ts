@@ -1,15 +1,66 @@
-const config = require("config");
+
 
 export default {
-    run: function(creep: Creep) {
 
+    getTargetStructure: function(creep: Creep, structureType: string) {
+        return creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            filter: (struct) => {
+
+                return (struct.structureType === structureType && (struct.energy != struct.energyCapacity))
+            }
+        });
+
+
+
+    },
+
+    getTarget: function (creep: Creep) {
+        let extensions:StructureExtension[] = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure: Structure) => {
+                return (structure.structureType === STRUCTURE_EXTENSION)
+            }
+        });
+
+        let numFullExtensions:number = _.filter(extensions, (ext:StructureExtension) => {
+            return (ext.energy === ext.energyCapacity);
+        }).length;
+
+        if (numFullExtensions !== extensions.length) {
+
+            return this.getTargetStructure(creep, STRUCTURE_EXTENSION)
+        }
+
+        if (Game.spawns["Spawn1"].energy !== Game.spawns["Spawn1"].energyCapacity) {
+
+            return Game.spawns["Spawn1"]
+        }
+
+        let towers:StructureTower[] = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure: Structure) => {
+                return (structure.structureType === STRUCTURE_TOWER)
+            }
+        });
+
+        let numFullTowers:number = _.filter(extensions, (tower: StructureTower) => {
+            return (tower.energy === tower.energyCapacity);
+        }).length;
+
+        if (numFullTowers !== towers.length) {
+            return this.getTargetStructure(creep, STRUCTURE_TOWER);
+        }
+
+        return false;
+
+    },
+    run: function(creep: Creep) {
         if (creep.carry.energy < creep.carryCapacity) {
 
             var targets: Structure[] = creep.room.find(FIND_STRUCTURES, {
 
 
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_CONTAINER ) && structure.energy > creep.carryCapacity/2;
+
+                    return (structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy !== 0);
                 }
 
 
@@ -18,15 +69,7 @@ export default {
                 creep.moveTo(targets[0]);
             }
         } else {
-            var target: Structure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_TOWER || structure.structureType ===  STRUCTURE_EXTENSION) && structure.energy != structure.energyCapacity
-                }
-            });
-
-            if (!target) {
-                creep.moveTo(config.mapSafeMinionZone.x, config.mapSafeMinionZone.y)
-            }
+            var target:Structure = this.getTarget(creep);
             var transOutcome = creep.transfer(target, RESOURCE_ENERGY)
             if(transOutcome == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target);

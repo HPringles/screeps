@@ -18,6 +18,8 @@ const creepRoles = {
     export function runCreep (creep: Creep) {
         if(creep.memory.currentRole) {
             creepRoles[creep.memory.currentRole].run(creep);
+        } else {
+            console.log("error")
         }
     }
 

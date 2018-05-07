@@ -43,7 +43,8 @@ export default {
     getFromContainer: (creep: Creep) => {
         var source: StructureContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: (structure) => {
-                return(structure.structureType === STRUCTURE_CONTAINER) && structure.energy > 10;
+                return(structure.structureType === STRUCTURE_CONTAINER) && structure.energy !== 0;
+
             }
         });
 

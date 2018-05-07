@@ -14,7 +14,7 @@
             var closestHostile: Creep = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 
             var closestDamagedStructure: Structure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (structure) => ((Game.time % 50 === 0 && structure.structureType === STRUCTURE_CONTAINER) || structure.hits < (structure.hitsMax*0.0003))
+                filter: (structure) => ((Game.time % 50 === 0 && structure.structureType === STRUCTURE_CONTAINER) || (Game.time % 20 === 0 && structure.structureType === STRUCTURE_RAMPART) || structure.hits < (structure.hitsMax*0.00003))
             });
 
             if(closestDamagedStructure) {
