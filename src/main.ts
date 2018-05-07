@@ -1,6 +1,15 @@
-import creepC from "creep.controller";
+import scripts from "./scripts"
 
-export const loop = function() {
-    console.log("running!!");
-    creepC.run();
+
+module.exports.loop = function () {
+    scripts.checkSpawn(Game);
+
+
+    scripts.tower(Game);
+
+    for(var name in Game.creeps) {
+        var creep = Game.creeps[name];
+        scripts.runCreep(creep);
+
+    }
 }
