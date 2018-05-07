@@ -5,7 +5,7 @@ module.exports = {
     },
     numBuilders: 2,
     numHarvesters: 0,
-    numUpgraders: 3,
+    numUpgraders: 5,
     numMiners: 3,
     numMinions: 3,
     numUpkeepers: 1,

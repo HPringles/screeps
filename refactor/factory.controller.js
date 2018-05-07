@@ -1,5 +1,16 @@
 const creepC = require("creep.controller");
 
+const roleConfig = {
+    miner: [WORK, WORK, WORK, CARRY, MOVE],
+    minion: [WORK, CARRY, CARRY, MOVE],
+    upgrader: [WORK,CARRY,CARRY,MOVE],
+    harvester: [WORK,CARRY,MOVE],
+    builder: [WORK,WORK, CARRY,CARRY,MOVE],
+    rubbishCollector: [CARRY,CARRY,CARRY,CARRY,MOVE],
+    
+}
+
+
 module.exports = {
     init: () => {
         if (Memory.factoryIsInitialised === true)
@@ -85,7 +96,34 @@ module.exports = {
             }
         }
 
-        
-    
-    }
+    },
+
+    processSpawnQueue: (spawn) => {
+        if (spawn.spawning) return;
+
+        if (!spawn.memory.spawnQueue) return;
+
+        let spawnQueue = spawn.memory.spawnQueue;
+        if (spawnQueue.length === 0) {
+            delete spawn.memory.spawnQueue;
+            return;
+        }
+
+        if (spawn.room.energyAvailable < 400) return;
+
+        let spawnRole = spawnQueue.shift();
+        this.spawnCreep(spawn, spawnRole)
+    },
+
+    spawnCreep: (spawn, role) => {
+        let name = role + Game.time;
+
+
+
+
+    },
+
+
+
+
 }

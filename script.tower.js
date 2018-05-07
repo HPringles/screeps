@@ -12,17 +12,19 @@ const towerScript = {
     runTower: (tower) => {
         if(tower) {
             var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-    
-            if(closestHostile) {
-                tower.attack(closestHostile);
-            }
+            
             var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (structure) => (structure.structureType === STRUCTURE_CONTAINER) || structure.hits < (structure.hitsMax*0.0003)
+                filter: (structure) => ((Game.time % 50 === 0 && structure.structureType === STRUCTURE_CONTAINER) || structure.hits < (structure.hitsMax*0.0003))
             });
             
             if(closestDamagedStructure) {
                 tower.repair(closestDamagedStructure);
             }
+    
+            if(closestHostile) {
+                console.log(tower.attack(closestHostile));
+            }
+            
             
         }
     }
