@@ -14,6 +14,15 @@ export default {
 
     },
 
+    getTargetStorage: (creep: Creep) => {
+        return creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            filter: (struct) => {
+
+                return (struct.structureType === STRUCTURE_STORAGE && (struct.store.energy !== struct.storeCapacity));
+            }
+        });
+    },
+
     getTarget: function (creep: Creep) {
         let extensions:StructureExtension[] = creep.room.find(FIND_STRUCTURES, {
             filter: (structure: Structure) => {
@@ -41,16 +50,28 @@ export default {
             }
         });
 
-        let numFullTowers:number = _.filter(extensions, (tower: StructureTower) => {
-            return (tower.energy === tower.energyCapacity);
+        const numFullTowers: number = _.filter(towers, (tower: StructureTower) => {
+            return (tower.energy >= tower.energyCapacity * 0.8);
+
         }).length;
 
         if (numFullTowers !== towers.length) {
             return this.getTargetStructure(creep, STRUCTURE_TOWER);
         }
+        let storageUnits: StructureStorage[] = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure: Structure) => {
+                return (structure.structureType === STRUCTURE_STORAGE);
+            }
+        });
 
-        return false;
+        const fullStorageUnits:number = _.filter(storageUnits, (unit:StructureStorage) => {
+            return (unit.store.energy === unit.storeCapacity);
+        }).length;
 
+        if (storageUnits.length !== fullStorageUnits) {
+            console.log("here")
+            return this.getTargetStorage(creep);
+        }
     },
     run: function(creep: Creep) {
         if (creep.carry.energy < creep.carryCapacity) {

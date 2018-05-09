@@ -43,13 +43,22 @@ export default {
     getFromContainer: (creep: Creep) => {
         var source: StructureContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: (structure) => {
-                return(structure.structureType === STRUCTURE_CONTAINER) && structure.energy !== 0;
+                return(structure.structureType === STRUCTURE_STORAGE) && structure.store.energy !== 0;
 
             }
         });
 
+        if (!source) {
+            source = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return(structure.structureType === STRUCTURE_CONTAINER) && structure.energy !== 0;
 
-        if(creep.withdraw(source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                }
+            });
+        }
+
+
+        if (creep.withdraw(source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
             creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
         }
     }

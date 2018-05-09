@@ -7,7 +7,7 @@ module.exports = {
     numHarvesters: 0,
     numUpgraders: 5,
     numMiners: 3,
-    numMinions: 3,
+    numMinions: 4,
     numUpkeepers: 1,
     numRubbishCollectors: 1,
     rubbishCollectorConfig: [CARRY, CARRY, CARRY, CARRY, MOVE],
@@ -15,5 +15,5 @@ module.exports = {
     harvesterConfig: [WORK,CARRY, MOVE, MOVE],
     upgraderConfig: [WORK,CARRY,CARRY, MOVE],
     minerConfig: [WORK, WORK, CARRY, MOVE],
-    minionConfig: [WORK, CARRY, CARRY, CARRY, MOVE],
+    minionConfig: [WORK, CARRY, CARRY, CARRY, CARRY, MOVE],
 }
