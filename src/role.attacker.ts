@@ -12,14 +12,20 @@ export default {
           let targets: Structure[] = Game.flags[i].pos.lookFor(LOOK_STRUCTURES)
           targets = _.filter(targets, (target) => {
             return (target.structureType === STRUCTURE_RAMPART || target.structureType === STRUCTURE_TOWER ||
-               target.structureType === STRUCTURE_CONTAINER || target.structureType === STRUCTURE_WALL || target.structureType === STRUCTURE_SPAWN);
+               target.structureType === STRUCTURE_CONTAINER || target.structureType === STRUCTURE_WALL ||
+                target.structureType === STRUCTURE_SPAWN);
           })
-          console.log(targets)
 
-          if (creep.attack(targets[0]) === ERR_NOT_IN_RANGE /*&& creep.rangedAttack(targets[1]) === ERR_NOT_IN_RANGE*/) {
+
+          if (creep.attack(targets[0]) === ERR_NOT_IN_RANGE ) {
             return creep.moveTo(targets[0]);
           }
 
+        } else if (Game.flags[i].color === 2) {
+          console.log(creep.attackController(creep.room.controller));
+          if (creep.attackController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+            return creep.moveTo(creep.room.controller);
+          }
         }
       }
     }

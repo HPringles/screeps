@@ -12,6 +12,7 @@ module.exports = {
     numRubbishCollectors: 1,
     numUpgraders: 2,
     numUpkeepers: 1,
+    numClaimers: 1,
     // tslint:disable-next-line:object-literal-sort-keys
     attackerConfig: [ATTACK , ATTACK, ATTACK, MOVE, MOVE, RANGED_ATTACK, TOUGH],
     rubbishCollectorConfig: [CARRY, CARRY, CARRY, CARRY, MOVE],
@@ -20,6 +21,7 @@ module.exports = {
     upgraderConfig: [WORK, CARRY, CARRY, MOVE],
     minerConfig: [WORK, WORK, WORK, CARRY, MOVE],
     minionConfig: [CARRY, CARRY, CARRY, CARRY, CARRY, MOVE],
+    claimerConfig: [CLAIM, MOVE],
     targetRoomSpace: {
         x: 0,
         y: 14

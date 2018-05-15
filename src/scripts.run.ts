@@ -4,7 +4,8 @@ import harvester from "./role.harvester"
 import miner from "./role.miner"
 import minion from "./role.minion"
 import rubbishCollector from "./role.rubbishCollector";
-import upgrader from "./role.upgrader"
+import upgrader from "./role.upgrader";
+import claimer from "./role.claimer";
 
 const creepRoles = {
     harvester,
@@ -13,7 +14,8 @@ const creepRoles = {
     miner,
     minion,
     rubbishCollector,
-    attacker
+    attacker,
+    claimer,
 }
 
 

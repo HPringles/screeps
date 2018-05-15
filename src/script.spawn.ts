@@ -25,6 +25,8 @@ export default {
             creep.memory.role === 'rubbishCollector');
         var attackers: Creep[] = _.filter(Game.creeps, (creep) =>
         creep.memory.role === 'attacker');
+        var claimers: Creep[] = _.filter(Game.creeps, (creep) =>
+        creep.memory.role === 'claimer');
 
         for(var name in Memory.creeps) {
             if(!Game.creeps[name]) {
@@ -66,6 +68,13 @@ export default {
             console.log('Spawning new attacker: ' + newName);
             return Game.spawns['Spawn1'].spawnCreep(config.attackerConfig, newName,
                 {memory: {role: 'attacker', currentRole: 'attacker'}});
+        }
+
+        if(claimers.length < config.numClaimers) {
+            var newName = 'Claimer' + Game.time;
+            console.log('Spawning new claimer: ' + newName);
+            return Game.spawns['Spawn1'].spawnCreep(config.claimerConfig, newName,
+                {memory: {role: 'claimer', currentRole: 'claimer'}});
         }
 
         if(upkeepers.length < config.numUpkeepers) {
