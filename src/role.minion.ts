@@ -1,4 +1,4 @@
-
+import scripts from "./scripts";
 
 export default {
 
@@ -69,7 +69,7 @@ export default {
         }).length;
 
         if (storageUnits.length !== fullStorageUnits) {
-            console.log("here")
+
             return this.getTargetStorage(creep);
         }
     },
@@ -86,6 +86,15 @@ export default {
 
 
             });
+            if (targets.length === 0) {
+                const resource = scripts.findDroppedEnergy(creep);
+                if(resource) {
+                    if (creep.pickup(resource) === ERR_NOT_IN_RANGE) {
+                        creep.moveTo(resource);
+                        return;
+                    }
+                }
+            }
             if (creep.withdraw(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(targets[0]);
             }

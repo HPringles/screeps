@@ -1,15 +1,18 @@
 import scripts from "./scripts";
 
 export default {
-    reset: function(creep) {
+    reset: (creep) => {
         creep.drop(RESOURCE_ENERGY);
     },
 
-    run: function(creep: Creep) {
+    run: (creep: Creep) => {
 
-    if (/*false*/creep.carry.energy == creep.carryCapacity) {
+    if (/*false*/creep.carry.energy === creep.carryCapacity) {
 
-            scripts.transferTypes.placeInContainer(creep, false)
+            const result = scripts.transferTypes.placeInContainer(creep, false);
+            if (result === 1) {
+                creep.drop(RESOURCE_ENERGY);
+            }
             // creep.drop(RESOURCE_ENERGY);
 
         } else {

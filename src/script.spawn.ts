@@ -9,14 +9,22 @@ export default {
             return;
         }
 
-        var harvesters: Creep[] = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-        var miners: Creep[] = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
-        var minons: Creep[] = _.filter(Game.creeps, (creep) => creep.memory.role == 'minion');
-        var builders: Creep[] =  _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && !creep.memory.upkeep);
-        var upkeepers: Creep[] =  _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.upkeep == true);
-        var upgraders: Creep[] = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-        var rubbishCollectors: Creep[] = _.filter(Game.creeps, (creep) => creep.memory.role == 'rubbishCollector');
-
+        var harvesters: Creep[] = _.filter(Game.creeps, (creep) =>
+            creep.memory.role === 'harvester');
+        var miners: Creep[] = _.filter(Game.creeps, (creep) =>
+            creep.memory.role === 'miner');
+        var minons: Creep[] = _.filter(Game.creeps, (creep) =>
+            creep.memory.role === 'minion');
+        var builders: Creep[] =  _.filter(Game.creeps, (creep) =>
+            creep.memory.role === 'builder' && !creep.memory.upkeep);
+        var upkeepers: Creep[] =  _.filter(Game.creeps, (creep) =>
+            creep.memory.role === 'builder' && creep.memory.upkeep == true);
+        var upgraders: Creep[] = _.filter(Game.creeps, (creep) =>
+            creep.memory.role === 'upgrader');
+        var rubbishCollectors: Creep[] = _.filter(Game.creeps, (creep) =>
+            creep.memory.role === 'rubbishCollector');
+        var attackers: Creep[] = _.filter(Game.creeps, (creep) =>
+        creep.memory.role === 'attacker');
 
         for(var name in Memory.creeps) {
             if(!Game.creeps[name]) {
@@ -53,6 +61,13 @@ export default {
                 {memory: {role: 'upgrader', currentRole: 'upgrader'}});
         }
 
+        if(attackers.length < config.numAttackers) {
+            var newName = 'Attacker' + Game.time;
+            console.log('Spawning new attacker: ' + newName);
+            return Game.spawns['Spawn1'].spawnCreep(config.attackerConfig, newName,
+                {memory: {role: 'attacker', currentRole: 'attacker'}});
+        }
+
         if(upkeepers.length < config.numUpkeepers) {
             var newName = 'Upkeeper' + Game.time;
             console.log('Spawning new upkeeper: ' + newName);
@@ -73,6 +88,8 @@ export default {
             return Game.spawns['Spawn1'].spawnCreep(config.rubbishCollectorConfig, newName,
                 {memory: {role: 'rubbishCollector', currentRole: 'rubbishCollector'}});
         }
+
+
 
         if(Game.spawns['Spawn1'].spawning) {
             var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];

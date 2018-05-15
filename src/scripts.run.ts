@@ -1,25 +1,26 @@
-import harvester from "./role.harvester"
-import upgrader from "./role.upgrader"
+import attacker from "./role.attacker"
 import builder from "./role.builder"
+import harvester from "./role.harvester"
 import miner from "./role.miner"
 import minion from "./role.minion"
 import rubbishCollector from "./role.rubbishCollector";
+import upgrader from "./role.upgrader"
 
 const creepRoles = {
-    harvester: harvester,
-    upgrader: upgrader,
-    builder: builder,
-    miner: miner,
-    minion: minion,
-    rubbishCollector: rubbishCollector,
+    harvester,
+    upgrader,
+    builder,
+    miner,
+    minion,
+    rubbishCollector,
+    attacker
 }
 
 
-    export function runCreep (creep: Creep) {
+export function runCreep (creep: Creep) {
         if(creep.memory.currentRole) {
             creepRoles[creep.memory.currentRole].run(creep);
         } else {
-            console.log("error")
+            console.log("error" + creep.name)
         }
     }
-
