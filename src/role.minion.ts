@@ -3,7 +3,7 @@ import scripts from "./scripts";
 export default {
 
     getTargetStructure: function(creep: Creep, structureType: string) {
-        return creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        return creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (struct) => {
 
                 return (struct.structureType === structureType && (struct.energy != struct.energyCapacity))
@@ -15,7 +15,7 @@ export default {
     },
 
     getTargetStorage: (creep: Creep) => {
-        return creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        return creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (struct) => {
 
                 return (struct.structureType === STRUCTURE_STORAGE && (struct.store.energy !== struct.storeCapacity));
@@ -74,7 +74,7 @@ export default {
         }
     },
     run: function(creep: Creep) {
-        if (creep.carry.energy < creep.carryCapacity) {
+        if (creep.carry.energy < 50) {
 
             var targets: Structure[] = creep.room.find(FIND_STRUCTURES, {
 

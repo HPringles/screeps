@@ -21,11 +21,6 @@ export default {
             return creep.moveTo(targets[0]);
           }
 
-        } else if (Game.flags[i].color === 2) {
-          console.log(creep.attackController(creep.room.controller));
-          if (creep.attackController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-            return creep.moveTo(creep.room.controller);
-          }
         }
       }
     }
