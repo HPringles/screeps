@@ -1,6 +1,11 @@
-import creepC from "creep.controller";
+// Imports
 
-export const loop = function() {
-    console.log("running!!");
-    creepC.run();
+
+
+
+// Initialisation
+
+
+export function loop() {
+  // Run each controller
 }

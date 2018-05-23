@@ -1,4 +1,4 @@
-import scripts from "./scripts";
+import {Scripts} from "./scripts";
 
 export default {
 
@@ -22,11 +22,11 @@ export default {
                 creep.moveTo(creep.room.controller);
             }
         } else {
-            const result: number = scripts.transferTypes.getFromContainer(creep);
+            const result: number = Scripts.transferTypes.getFromContainer(creep);
             if (result === 0) {
                 return true;
             }
-            const resource = scripts.findDroppedEnergy(creep);
+            const resource = Scripts.findDroppedEnergy(creep);
             if (resource && creep.pickup(resource) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(resource);
             }

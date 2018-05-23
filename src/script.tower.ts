@@ -38,7 +38,7 @@
             }
 
             if (closestHostile) {
-                console.log(tower.attack(closestHostile));
+                console.log("attack result" + tower.attack(closestHostile));
             }
         }
     }

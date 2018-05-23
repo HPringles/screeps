@@ -1,8 +1,12 @@
+import {Scripts} from "scripts";
+
 let config = require("./config");
 
-export default {
-  run: (creep: Creep) => {
-    if (creep.room.name !== "W47S19") {
+export class RoleAttacker {
+
+  public static run(creep: Creep) {
+
+    if (creep.room.name !== "W46S19") {
       creep.moveTo(config.targetRoomSpace.x, config.targetRoomSpace.y);
     } else {
       for (let i in Game.flags) {
@@ -23,6 +27,8 @@ export default {
 
         }
       }
+
+      Scripts.goToSafeZone(creep);
     }
   }
 };

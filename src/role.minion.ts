@@ -1,8 +1,9 @@
-import scripts from "./scripts";
+import {Scripts} from "./scripts";
 
 export default {
 
     getTargetStructure: function(creep: Creep, structureType: string) {
+
         return creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (struct) => {
 
@@ -24,11 +25,26 @@ export default {
     },
 
     getTarget: function (creep: Creep) {
-        let extensions:StructureExtension[] = creep.room.find(FIND_STRUCTURES, {
+        let extensions: StructureExtension[] = creep.room.find(FIND_STRUCTURES, {
             filter: (structure: Structure) => {
                 return (structure.structureType === STRUCTURE_EXTENSION)
             }
         });
+
+        let towers: StructureTower[] = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure: Structure) => {
+                return (structure.structureType === STRUCTURE_TOWER)
+            }
+        });
+
+        const numFullTowers: number = _.filter(towers, (tower: StructureTower) => {
+            return (tower.energy >= tower.energyCapacity * 0.8);
+
+        }).length;
+
+        if (numFullTowers !== towers.length && creep.memory.tower) {
+            return (this.getTargetStructure(creep, STRUCTURE_TOWER));
+        }
 
         let numFullExtensions:number = _.filter(extensions, (ext:StructureExtension) => {
             return (ext.energy === ext.energyCapacity);
@@ -44,16 +60,8 @@ export default {
             return Game.spawns["Spawn1"]
         }
 
-        let towers:StructureTower[] = creep.room.find(FIND_STRUCTURES, {
-            filter: (structure: Structure) => {
-                return (structure.structureType === STRUCTURE_TOWER)
-            }
-        });
 
-        const numFullTowers: number = _.filter(towers, (tower: StructureTower) => {
-            return (tower.energy >= tower.energyCapacity * 0.8);
 
-        }).length;
 
         if (numFullTowers !== towers.length) {
             return this.getTargetStructure(creep, STRUCTURE_TOWER);
@@ -74,20 +82,33 @@ export default {
         }
     },
     run: function(creep: Creep) {
-        if (creep.carry.energy < 50) {
+
+        if (creep.memory.doing === undefined) {
+            creep.memory.doing = true;
+        }
+
+        if (creep.carry.energy === 0 && creep.memory.doing) {
+            creep.memory.doing = false;
+        }
+
+        if (creep.carry.energy === creep.carryCapacity && !creep.memory.doing) {
+            creep.memory.doing = true;
+        }
+
+        if (creep.carry.energy < creep.carryCapacity && !creep.memory.doing) {
 
             var targets: Structure[] = creep.room.find(FIND_STRUCTURES, {
 
 
                 filter: (structure) => {
 
-                    return (structure.structureType == STRUCTURE_CONTAINER ) && (structure.energy !== 0);
+                    return (structure.structureType === STRUCTURE_CONTAINER ) && (structure.energy !== 0);
                 }
 
 
             });
             if (targets.length === 0) {
-                const resource = scripts.findDroppedEnergy(creep);
+                const resource = Scripts.findDroppedEnergy(creep);
                 if(resource) {
                     if (creep.pickup(resource) === ERR_NOT_IN_RANGE) {
                         creep.moveTo(resource);

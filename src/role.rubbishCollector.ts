@@ -1,15 +1,15 @@
-import scripts from "./scripts";
+import {Scripts} from "./scripts";
 
 export default {
     run: (creep: Creep) => {
         let target: Resource;
-        target = scripts.findDroppedEnergy(creep);
+        target = Scripts.findDroppedEnergy(creep);
         if (creep.carry.energy !== creep.carryCapacity && target) {
-            scripts.transferTypes.pickupDroppedEnergy(creep, target);
+            Scripts.transferTypes.pickupDroppedEnergy(creep, target);
         } else if (!target && creep.carry.energy === 0) {
-            scripts.goToSafeZone(creep);
+            Scripts.goToSafeZone(creep);
         } else {
-            scripts.transferTypes.placeInContainer(creep, true);
+            Scripts.transferTypes.placeInContainer(creep, true);
         }
     }
 };

@@ -1,4 +1,4 @@
-import scripts from "./scripts";
+import {Scripts} from "./scripts";
 
 export default {
     reset: (creep) => {
@@ -9,7 +9,7 @@ export default {
 
     if (/*false*/creep.carry.energy === creep.carryCapacity) {
 
-            const result = scripts.transferTypes.placeInContainer(creep, false);
+            const result = Scripts.transferTypes.placeInContainer(creep, false);
             if (result === 1) {
                 creep.drop(RESOURCE_ENERGY);
             }

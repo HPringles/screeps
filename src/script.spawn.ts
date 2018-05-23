@@ -15,6 +15,8 @@ export default {
             creep.memory.role === 'miner');
         var minons: Creep[] = _.filter(Game.creeps, (creep) =>
             creep.memory.role === 'minion');
+        var towerMinons: Creep[] = _.filter(Game.creeps, (creep) =>
+        creep.memory.role === 'minion' && creep.memory.tower);
         var builders: Creep[] =  _.filter(Game.creeps, (creep) =>
             creep.memory.role === 'builder' && !creep.memory.upkeep);
         var upkeepers: Creep[] =  _.filter(Game.creeps, (creep) =>
@@ -61,6 +63,13 @@ export default {
             console.log('Spawning new upgrader: ' + newName);
             return Game.spawns['Spawn1'].spawnCreep(config.upgraderConfig, newName,
                 {memory: {role: 'upgrader', currentRole: 'upgrader'}});
+        }
+
+        if(towerMinons.length < config.numTowerMinions) {
+            var newName = 'towerMinion' + Game.time;
+            console.log('Spawning new towerMinion: ' + newName);
+            return Game.spawns['Spawn1'].spawnCreep(config.minionConfig, newName,
+                {memory: {role: 'minion', currentRole: 'minion', tower: true}});
         }
 
         if(attackers.length < config.numAttackers) {

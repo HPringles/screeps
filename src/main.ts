@@ -1,12 +1,12 @@
-import scripts from "./scripts";
+import {Scripts} from "./scripts";
 
 module.exports.loop =  () => {
-    scripts.checkSpawn(Game);
-    scripts.tower(Game);
+    Scripts.checkSpawn(Game);
+    Scripts.tower(Game);
 
     for (const name in Game.creeps) {
         const creep = Game.creeps[name];
-        scripts.runCreep(creep);
+        Scripts.runCreep(creep);
 
     }
 };

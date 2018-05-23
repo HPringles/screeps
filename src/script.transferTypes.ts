@@ -45,7 +45,7 @@ export default {
      *  @param {creep} - the creep that will collect energy
      */
     getFromContainer: (creep: Creep) => {
-        var source: StructureContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        var source: StructureStorage = creep.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: (structure) => {
                 return(structure.structureType === STRUCTURE_STORAGE) && structure.store.energy !== 0;
 
